@@ -81,14 +81,24 @@
 
   /* SIGNATURE — pricing as engraved compliance plates */
   .plates{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:52px}
-  .plate{background:#EFEEEA;border:1px solid var(--brass);outline:1px solid var(--brass);outline-offset:5px;padding:34px 32px;display:flex;flex-direction:column}
-  .plate__model{margin:0 0 4px;font-family:var(--f-mono);font-size:1rem;letter-spacing:.22em}
-  .plate__sub{margin:0 0 22px;font-size:.95rem;color:var(--graphite)}
-  .plate__rows{margin:0 0 26px;display:grid}
-  .plate__row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--rule);font-family:var(--f-mono);font-size:.82rem}
-  .plate__row dt{color:var(--graphite)}
-  .plate__row dd{margin:0;text-align:right}
-  .plate__row--price dd{color:var(--brass)}
+  .plate{background:#EFEEEA;border:1px solid var(--brass);outline:1px solid var(--brass);outline-offset:5px;display:flex;flex-direction:column}
+  .plate__head{padding:20px 30px;border-bottom:1px solid var(--brass)}
+  .plate__model{margin:0;font-family:var(--f-mono);font-size:.95rem;letter-spacing:.22em}
+  .plate__body{padding:0 30px 30px;display:flex;flex-direction:column;flex:1}
+  .plate__spec{display:grid;grid-template-columns:1fr 1fr;column-gap:28px}
+  .plate__specitem{padding:20px 0 16px;border-bottom:1px solid var(--rule)}
+  .plate__speclabel{margin:0 0 4px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.13em;color:var(--graphite)}
+  .plate__specvalue{margin:0;font-family:var(--f-serif);font-size:1.4rem;line-height:1.2}
+  .plate__inclhead{margin:24px 0 6px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.15em;color:var(--graphite)}
+  .plate__incl{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;column-gap:24px}
+  .plate__incl li{position:relative;padding:7px 0 7px 18px;font-size:.93rem;color:var(--graphite)}
+  .plate__incl li::before{content:'';position:absolute;left:0;top:15px;width:7px;height:7px;background:var(--brass)}
+  .plate__prices{margin-top:24px;border-top:1px solid var(--rule)}
+  .plate__price{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule)}
+  .plate__pricelabel{font-size:.95rem;color:var(--graphite)}
+  .plate__priceval{font-family:var(--f-serif);font-size:1.75rem;letter-spacing:-.01em;white-space:nowrap}
+  .plate__per{font-family:var(--f-mono);font-size:.72rem;color:var(--graphite)}
+  .plate__note{margin:14px 0 22px;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.11em;color:var(--graphite)}
   .plate__footer{margin-top:auto}
   .plate__footer .button{width:100%}
 
@@ -143,7 +153,7 @@
     .hero__actions .button{width:100%}
     .reg__row{grid-template-columns:1fr;gap:8px;padding:24px 0}
     .reg__no{padding-top:0}
-    .ops__row{grid-template-columns:1fr;gap:6px}
+    .ops__row{grid-template-columns:1fr;gap:6px}.plate__spec,.plate__incl{grid-template-columns:1fr}.plate__head{padding:18px 22px}.plate__body{padding:0 22px 24px}
     .close{padding:90px 20px 76px}
     .close__actions{flex-direction:column;align-items:stretch}
     .footer{justify-content:center;text-align:center}
@@ -255,30 +265,78 @@
     <p class="section__text">Less than one part-time admin salary for every person in the building to have AI they are actually allowed to use.</p>
     <div class="plates">
       <div class="plate">
-        <p class="plate__model">DOMINION CORE</p>
-        <p class="plate__sub">Up to 15 staff</p>
-        <dl class="plate__rows">
-          <div class="plate__row plate__row--price"><dt>INITIAL</dt><dd>$6,500</dd></div>
-          <div class="plate__row plate__row--price"><dt>MONTHLY</dt><dd>$2,499</dd></div>
-          <div class="plate__row"><dt>USERS</dt><dd>Unlimited</dd></div>
-          <div class="plate__row"><dt>APPLIANCE</dt><dd>Private AI, on premises</dd></div>
-          <div class="plate__row"><dt>KNOWLEDGE</dt><dd>Managed ingestion</dd></div>
-          <div class="plate__row"><dt>SERVICE</dt><dd>Updates, monitoring, support</dd></div>
-        </dl>
-        <div class="plate__footer"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
+        <div class="plate__head"><p class="plate__model">DOMINION CORE</p></div>
+        <div class="plate__body">
+          <div class="plate__spec">
+            <div class="plate__specitem">
+              <p class="plate__speclabel">IDEAL FOR TEAMS</p>
+              <p class="plate__specvalue">Up to 15 staff</p>
+            </div>
+            <div class="plate__specitem">
+              <p class="plate__speclabel">AI KNOWLEDGE CAPACITY</p>
+              <p class="plate__specvalue">2 TB</p>
+            </div>
+          </div>
+          <p class="plate__inclhead">EVERYTHING INCLUDED</p>
+          <ul class="plate__incl">
+            <li>Unlimited users</li>
+            <li>Private AI</li>
+            <li>Knowledge management</li>
+            <li>AI model updates</li>
+            <li>Monitoring</li>
+            <li>Support</li>
+            <li>Quarterly optimisation</li>
+          </ul>
+          <div class="plate__prices">
+            <div class="plate__price">
+              <span class="plate__pricelabel">One-time implementation</span>
+              <span class="plate__priceval">$6,500</span>
+            </div>
+            <div class="plate__price">
+              <span class="plate__pricelabel">Managed AI platform</span>
+              <span class="plate__priceval">$2,499 <span class="plate__per">/MONTH</span></span>
+            </div>
+          </div>
+          <p class="plate__note">MINIMUM 12-MONTH AGREEMENT</p>
+          <div class="plate__footer"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
+        </div>
       </div>
       <div class="plate">
-        <p class="plate__model">DOMINION GROWTH</p>
-        <p class="plate__sub">15&ndash;30 staff</p>
-        <dl class="plate__rows">
-          <div class="plate__row plate__row--price"><dt>INITIAL</dt><dd>$7,995</dd></div>
-          <div class="plate__row plate__row--price"><dt>MONTHLY</dt><dd>$3,999</dd></div>
-          <div class="plate__row"><dt>USERS</dt><dd>Unlimited</dd></div>
-          <div class="plate__row"><dt>CAPACITY</dt><dd>4 TB knowledge</dd></div>
-          <div class="plate__row"><dt>APPLIANCE</dt><dd>Private AI, on premises</dd></div>
-          <div class="plate__row"><dt>SERVICE</dt><dd>Support, optimisation, hardware cover</dd></div>
-        </dl>
-        <div class="plate__footer"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
+        <div class="plate__head"><p class="plate__model">DOMINION GROWTH</p></div>
+        <div class="plate__body">
+          <div class="plate__spec">
+            <div class="plate__specitem">
+              <p class="plate__speclabel">IDEAL FOR TEAMS</p>
+              <p class="plate__specvalue">15&ndash;30 staff</p>
+            </div>
+            <div class="plate__specitem">
+              <p class="plate__speclabel">AI KNOWLEDGE CAPACITY</p>
+              <p class="plate__specvalue">4 TB</p>
+            </div>
+          </div>
+          <p class="plate__inclhead">EVERYTHING INCLUDED</p>
+          <ul class="plate__incl">
+            <li>Unlimited users</li>
+            <li>Private AI</li>
+            <li>Knowledge management</li>
+            <li>AI model updates</li>
+            <li>Monitoring</li>
+            <li>Support</li>
+            <li>Quarterly optimisation</li>
+          </ul>
+          <div class="plate__prices">
+            <div class="plate__price">
+              <span class="plate__pricelabel">One-time implementation</span>
+              <span class="plate__priceval">$7,995</span>
+            </div>
+            <div class="plate__price">
+              <span class="plate__pricelabel">Managed AI platform</span>
+              <span class="plate__priceval">$3,999 <span class="plate__per">/MONTH</span></span>
+            </div>
+          </div>
+          <p class="plate__note">MINIMUM 12-MONTH AGREEMENT</p>
+          <div class="plate__footer"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
+        </div>
       </div>
     </div>
   </section>
