@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,105 +7,147 @@
 <meta name="description" content="Ermos Dominion: a private AI appliance that lives in your building. Your data never leaves. Concentrated intelligence, on your premises.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@400;600&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FAFAFA; --surface:#FFFFFF; --ink:#0A0A0A; --muted:#6B6B6B;
-    --line:rgba(0,0,0,.12); --accent:#0032FF;
-    --f-display:'Space Grotesk',system-ui,sans-serif;
-    --f-mono:'Space Mono',ui-monospace,monospace;
-    --pad:clamp(20px,5vw,80px);
-  }
-  :root[data-theme="dark"]{
-    --bg:#0B0F14; --surface:#10151D; --ink:#F2F5F9; --muted:#8B93A1;
-    --line:rgba(255,255,255,.12);
+    --limestone:#EBEAE6; --gunmetal:#191C1F; --graphite:#54595F;
+    --brass:#8A6D3B; --rule:#B8B5AE;
+    --paper-ink:#F3F1EC;
+    --f-serif:'Libre Caslon Text',Georgia,serif;
+    --f-sans:'Source Sans 3',system-ui,sans-serif;
+    --f-mono:'IBM Plex Mono',ui-monospace,monospace;
+    --pad:clamp(20px,5vw,84px);
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-display);font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.6}
+  body{margin:0;background:var(--limestone);color:var(--gunmetal);font-family:var(--f-sans);font-weight:400;line-height:1.65;-webkit-font-smoothing:antialiased}
   a{color:inherit;text-decoration:none}
-  .mono{font-family:var(--f-mono);font-size:.84rem;letter-spacing:.08em;color:var(--muted)}
+  :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
 
-  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad);background:rgba(250,250,250,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-  .nav__brand{font-family:var(--f-mono);font-size:1rem;letter-spacing:.28em}
-  .nav__links{display:flex;gap:28px;font-family:var(--f-mono);font-size:.82rem}
-  .nav__links a{color:var(--ink)}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px var(--pad);background:rgba(235,234,230,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+  .nav__brand{font-family:var(--f-sans);font-weight:600;font-size:.95rem;letter-spacing:.34em}
+  .nav__links{display:flex;gap:30px;font-size:.9rem}
+  .nav__links a{color:var(--gunmetal)}
+  .nav__links a:hover{color:var(--brass)}
 
-  .button{display:inline-flex;align-items:center;justify-content:center;padding:18px 28px;border-radius:999px;font-family:var(--f-mono);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid transparent;transition:.25s ease;}
-  .button--primary{background:var(--ink);color:#fff;}
-  .button--secondary{background:transparent;color:var(--ink);border-color:var(--ink);}
-  .button:hover{transform:translateY(-1px)}
+  .button{display:inline-flex;align-items:center;justify-content:center;padding:15px 28px;font-family:var(--f-sans);font-weight:600;font-size:.92rem;letter-spacing:.04em;border:1px solid var(--gunmetal);transition:background .2s ease,color .2s ease}
+  .button--solid{background:var(--gunmetal);color:var(--paper-ink)}
+  .button--solid:hover{background:#000}
+  .button--ruled{background:transparent;color:var(--gunmetal)}
+  .button--ruled:hover{background:rgba(25,28,31,.06)}
+  .button--light{border-color:var(--paper-ink);background:var(--paper-ink);color:var(--gunmetal)}
+  .button--light:hover{background:#fff}
+  .button--light-ruled{border-color:rgba(243,241,236,.85);background:transparent;color:var(--paper-ink)}
+  .button--light-ruled:hover{background:rgba(243,241,236,.1)}
 
-  .hero{min-height:100svh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:64px;padding:calc(80px + 1vw) var(--pad);position:relative;overflow:hidden}
-  .hero__content{max-width:42rem}
-  .hero__eyebrow{margin:0 0 24px;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .hero__h1{font-weight:400;font-size:clamp(3rem,6vw,5.5rem);line-height:1.02;letter-spacing:-.04em;margin:0;max-width:12ch}
-  .hero__accent{color:var(--accent)}
-  .hero__copy{margin:28px 0 0;max-width:38rem;font-size:1.05rem;line-height:1.75;color:var(--muted)}
-  .hero__actions{margin-top:32px;display:flex;flex-wrap:wrap;gap:16px}
-  .hero__product{position:absolute;right:-4%;top:8%;width:min(58vw,700px);height:min(70vh,820px);pointer-events:none;display:grid;place-items:center;opacity:.95}
-  .hero__product video{width:100%;height:100%;object-fit:cover;border-radius:38px;box-shadow:0 60px 140px rgba(0,0,0,.16);background:#000}
-  .hero__product::before{content:'';position:absolute;inset:-16px;border-radius:46px;background:radial-gradient(circle at top, rgba(0,50,255,.08), transparent 28%),linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,0));pointer-events:none}
+  /* HERO — full-bleed product shot, headline over it */
+  .hero{position:relative;min-height:100svh;display:flex;align-items:flex-end;overflow:hidden;color:var(--paper-ink);background:#111316}
+  .hero__media{position:absolute;inset:0;display:flex;justify-content:flex-end;align-items:center;padding-right:4vw}
+  .hero__media video{height:min(94vh,880px);width:auto;filter:grayscale(.6) saturate(.45) brightness(.82) contrast(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 99%);mask-image:radial-gradient(closest-side,#000 62%,transparent 99%)}
+  .hero__scrim{position:absolute;inset:0;background:linear-gradient(to right,rgba(17,19,22,.9) 0%,rgba(17,19,22,.52) 44%,rgba(17,19,22,0) 78%)}
+  .hero__content{position:relative;z-index:2;padding:0 var(--pad) clamp(48px,9vh,96px);max-width:820px;animation:heroIn .9s ease both}
+  @keyframes heroIn{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .hero__eyebrow{margin:0 0 20px;font-family:var(--f-mono);font-size:.78rem;letter-spacing:.16em;color:rgba(243,241,236,.75)}
+  .hero__h1{margin:0;font-family:var(--f-serif);font-weight:400;font-size:clamp(2.3rem,5.4vw,4.6rem);line-height:1.08;letter-spacing:-.01em;max-width:15ch}
+  .hero__copy{margin:22px 0 0;max-width:34rem;font-size:1.06rem;line-height:1.7;color:rgba(243,241,236,.85)}
+  .hero__actions{margin-top:30px;display:flex;flex-wrap:wrap;gap:14px}
 
-  .section{padding:120px var(--pad)}
-  .section--thin{padding-top:80px;padding-bottom:80px}
-  .section__label{margin:0 0 16px;font-family:var(--f-mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .section__title{margin:0;max-width:14ch;font-size:clamp(2.1rem,4vw,3.6rem);font-weight:400;line-height:1.08}
-  .section__text{margin:24px 0 0;max-width:50ch;font-size:1rem;line-height:1.75;color:var(--muted)}
-  .section__grid{display:grid;gap:28px;margin-top:40px}
+  /* REGISTER — numbered beats on solid rules */
+  .section{padding:96px var(--pad)}
+  .section--beat{border-top:2px solid var(--gunmetal)}
+  .section__title{margin:0;font-family:var(--f-serif);font-weight:400;font-size:clamp(1.9rem,3.6vw,3rem);line-height:1.15;max-width:22ch}
+  .section__text{margin:20px 0 0;max-width:52ch;font-size:1.02rem;color:var(--graphite)}
 
-  .card{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:32px;min-height:240px;box-shadow:0 22px 60px rgba(10,10,10,.04)}
-  .card__heading{margin:0 0 16px;font-size:1.1rem;line-height:1.2}
-  .card__copy{margin:0;font-size:1rem;line-height:1.75;color:var(--muted)}
+  .reg{margin-top:44px}
+  .reg__row{display:grid;grid-template-columns:72px 1fr 1.5fr;gap:32px;padding:32px 0;border-top:1px solid var(--rule)}
+  .reg__no{font-family:var(--f-mono);font-size:.85rem;color:var(--brass);padding-top:6px}
+  .reg__h{margin:0;font-family:var(--f-serif);font-weight:400;font-size:1.3rem;line-height:1.3}
+  .reg__p{margin:0;color:var(--graphite);font-size:1rem}
 
-  .grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
-  .grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .beatmark{font-family:var(--f-mono);font-size:.85rem;color:var(--brass);display:block;margin-bottom:14px}
 
-  .list{margin:32px 0 0;padding:0;list-style:none;display:grid;gap:18px}
-  .list__item{display:flex;gap:16px;font-size:1rem;line-height:1.75;color:var(--muted)}
-  .list__item::before{content:'•';color:var(--accent);font-family:var(--f-mono);}
+  .speclist{margin:30px 0 0;padding:0;list-style:none;max-width:52ch}
+  .speclist li{position:relative;padding:14px 0 14px 26px;border-top:1px solid var(--rule);color:var(--graphite)}
+  .speclist li::before{content:'';position:absolute;left:2px;top:22px;width:8px;height:8px;background:var(--brass)}
 
-  .plans{display:grid;gap:24px;margin-top:40px}
-  .plan{border:1px solid var(--line);border-radius:28px;padding:32px;background:var(--surface);display:flex;flex-direction:column;gap:22px;min-height:320px}
-  .plan__label{font-family:var(--f-mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
-  .plan__title{margin:0;font-size:1.5rem;line-height:1.1}
-  .plan__price{margin:0;font-size:2rem;line-height:1.05;letter-spacing:-.04em}
-  .plan__list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
-  .plan__list li{font-size:.98rem;color:var(--muted)}
-  .plan__footer{margin-top:auto}
+  /* Managed service — the ledger, re-skinned */
+  .split{display:grid;grid-template-columns:1fr 1.3fr;gap:56px;align-items:start}
+  .ops__row{display:grid;grid-template-columns:120px 1fr;gap:26px;padding:24px 0;border-top:1px solid var(--rule)}
+  .ops__when{font-family:var(--f-mono);font-size:.78rem;letter-spacing:.06em;color:var(--graphite);padding-top:4px;white-space:nowrap}
+  .ops__when--live{color:var(--brass)}
+  .ops__what h3{margin:0 0 6px;font-family:var(--f-serif);font-weight:400;font-size:1.12rem}
+  .ops__what p{margin:0;font-size:.97rem;color:var(--graphite)}
+  .ops__note{margin:20px 0 0;font-family:var(--f-mono);font-size:.75rem;letter-spacing:.05em;color:var(--graphite)}
 
-  .split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
-  .feature__label{font-family:var(--f-mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-  .feature__title{margin:0;font-size:1.55rem;line-height:1.1}
-  .feature__copy{margin:0;font-size:1rem;line-height:1.75;color:var(--muted)}
+  /* SIGNATURE — pricing as engraved compliance plates */
+  .plates{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:52px}
+  .plate{background:#EFEEEA;border:1px solid var(--brass);outline:1px solid var(--brass);outline-offset:5px;padding:34px 32px;display:flex;flex-direction:column}
+  .plate__model{margin:0 0 4px;font-family:var(--f-mono);font-size:1rem;letter-spacing:.22em}
+  .plate__sub{margin:0 0 22px;font-size:.95rem;color:var(--graphite)}
+  .plate__rows{margin:0 0 26px;display:grid}
+  .plate__row{display:flex;justify-content:space-between;gap:16px;padding:9px 0;border-bottom:1px solid var(--rule);font-family:var(--f-mono);font-size:.82rem}
+  .plate__row dt{color:var(--graphite)}
+  .plate__row dd{margin:0;text-align:right}
+  .plate__row--price dd{color:var(--brass)}
+  .plate__footer{margin-top:auto}
+  .plate__footer .button{width:100%}
 
-  .ops{margin-top:4px;border-top:1px solid var(--line)}
-  .ops__row{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:28px 0;border-bottom:1px solid var(--line)}
-  .ops__when{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.14em;color:var(--muted);padding-top:5px;white-space:nowrap}
-  .ops__when--live{color:var(--accent)}
-  .ops__what h3{margin:0 0 8px;font-size:1.1rem;font-weight:400;line-height:1.3}
-  .ops__what p{margin:0;font-size:.98rem;line-height:1.7;color:var(--muted)}
-  .ops__note{margin:22px 0 0;font-family:var(--f-mono);font-size:.8rem;letter-spacing:.1em;color:var(--muted)}
+  /* VAULT — the one dark band */
+  .vault{background:var(--gunmetal);color:var(--paper-ink);padding:110px var(--pad)}
+  .vault .section__title{color:var(--paper-ink)}
+  .vault__grid{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;margin-top:44px}
+  .vault__item{padding:26px 0;border-top:1px solid rgba(243,241,236,.22)}
+  .vault__item h3{margin:0 0 8px;font-family:var(--f-serif);font-weight:400;font-size:1.15rem}
+  .vault__item p{margin:0;font-size:.98rem;color:rgba(243,241,236,.72)}
 
-  .close{border-top:1px solid var(--line);padding:150px var(--pad) 130px}
-  .close__title{margin:0;max-width:16ch;font-size:clamp(2.6rem,5.5vw,4.6rem);font-weight:400;line-height:1.05;letter-spacing:-.03em}
-  .close__accent{color:var(--accent)}
-  .close__copy{margin:28px 0 0;max-width:42rem;font-size:1.05rem;line-height:1.75;color:var(--muted)}
-  .close__actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:16px}
+  /* FAQ */
+  .faq{margin-top:40px}
+  .faq__item{padding:26px 0;border-top:1px solid var(--rule)}
+  .faq__q{margin:0 0 8px;font-family:var(--f-serif);font-weight:400;font-size:1.15rem}
+  .faq__a{margin:0;max-width:62ch;color:var(--graphite)}
 
-  .faq{display:grid;gap:22px;margin-top:32px}
-  .faq__item{padding:24px 26px;border:1px solid var(--line);border-radius:22px;background:var(--surface)}
-  .faq__q{margin:0 0 10px;font-weight:500}
-  .faq__a{margin:0;color:var(--muted);line-height:1.75}
+  /* CLOSE */
+  .close{border-top:2px solid var(--gunmetal);padding:130px var(--pad) 110px}
+  .close__title{margin:0;font-family:var(--f-serif);font-weight:400;font-size:clamp(2.4rem,5vw,4.2rem);line-height:1.08;max-width:16ch}
+  .close__accent{font-style:italic;color:var(--brass)}
+  .close__copy{margin:26px 0 0;max-width:42rem;font-size:1.05rem;color:var(--graphite)}
+  .close__actions{margin-top:34px;display:flex;flex-wrap:wrap;gap:14px}
 
-  .footer{border-top:1px solid var(--line);padding:32px var(--pad);display:flex;justify-content:space-between;gap:24px;font-family:var(--f-mono);font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+  .footer{border-top:1px solid var(--rule);padding:26px var(--pad);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+  .footer__brand{font-weight:600;font-size:.85rem;letter-spacing:.34em}
+  .footer__data{font-family:var(--f-mono);font-size:.75rem;color:var(--graphite)}
 
-  [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
-  [data-reveal].in{opacity:1;transform:none}
-  @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+  [data-reveal]{opacity:0;transition:opacity .7s ease}
+  [data-reveal].in{opacity:1}
+  @media(prefers-reduced-motion:reduce){
+    [data-reveal]{opacity:1;transition:none}
+    .hero__content{animation:none}
+    html{scroll-behavior:auto}
+  }
 
-  @media(max-width:980px){.hero{grid-template-columns:1fr;gap:48px;padding-top:120px}.hero__product{position:relative;right:auto;top:auto;width:100%;height:380px;order:-1}.hero__product::before{border-radius:24px}}
-  @media(max-width:760px){.section{padding:80px var(--pad)}.section__title{font-size:clamp(2rem,6vw,2.8rem)}.grid--3,.grid--2,.split{grid-template-columns:1fr}.nav{padding:18px 20px}.hero{padding:80px 20px}.hero__h1{font-size:clamp(2.6rem,10vw,3.8rem)}.hero__product{height:260px}.hero__actions{flex-direction:column;align-items:flex-start}.button{width:100%;justify-content:center}.card{padding:26px}.plan{padding:28px}.footer{padding:24px 20px;justify-content:center;text-align:center}.ops__row{grid-template-columns:1fr;gap:8px;padding:22px 0}.ops__when{padding-top:0}.close{padding:100px 20px 80px}.close__actions{flex-direction:column;align-items:flex-start}}
+  @media(max-width:980px){
+    .split{grid-template-columns:1fr;gap:40px}
+    .plates{grid-template-columns:1fr;gap:34px}
+    .vault__grid{grid-template-columns:1fr}
+    .reg__row{grid-template-columns:52px 1fr;grid-template-rows:auto auto}
+    .reg__row .reg__p{grid-column:2}
+  }
+  @media(max-width:760px){
+    .section{padding:72px var(--pad)}
+    .hero__media{justify-content:center;align-items:flex-start;padding:64px 0 0}
+    .hero__media video{height:min(58vh,480px)}
+    .hero__scrim{background:linear-gradient(to top,rgba(17,19,22,.92) 34%,rgba(17,19,22,.3) 100%)}
+    .nav{padding:14px 20px}
+    .nav__links{gap:18px;font-size:.84rem}
+    .hero__actions{flex-direction:column;align-items:stretch}
+    .hero__actions .button{width:100%}
+    .reg__row{grid-template-columns:1fr;gap:8px;padding:24px 0}
+    .reg__no{padding-top:0}
+    .ops__row{grid-template-columns:1fr;gap:6px}
+    .close{padding:90px 20px 76px}
+    .close__actions{flex-direction:column;align-items:stretch}
+    .footer{justify-content:center;text-align:center}
+  }
 </style>
 </head>
 <body>
@@ -115,56 +157,59 @@
   </nav>
 
   <header class="hero">
-    <div class="hero__content">
-      <p class="hero__eyebrow">CONCENTRATED INTELLIGENCE&trade; · ON YOUR PREMISES</p>
-      <h1 class="hero__h1">ChatGPT for firms that can't use <span class="hero__accent">ChatGPT.</span></h1>
-      <p class="hero__copy">On-premises AI for law, medical, accounting and financial advice firms that sit on data they cannot leak.</p>
-      <div class="hero__actions">
-        <a class="button button--primary" href="#pricing">Book a confidential consultation</a>
-        <a class="button button--secondary" href="/security-brief.html">Get the security brief</a>
-      </div>
-    </div>
-    <div class="hero__product" aria-hidden="true">
-      <video autoplay muted playsinline loop preload="auto" poster="assets/opt/hero-1200.webp" aria-label="The Ermos Dominion unit">
+    <div class="hero__media" aria-hidden="true">
+      <video autoplay muted playsinline loop preload="auto" poster="assets/opt/hero-1200.webp">
         <source src="assets/video.mp4" type="video/mp4">
       </video>
     </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="hero__content">
+      <p class="hero__eyebrow">CONCENTRATED INTELLIGENCE&trade; &middot; ON YOUR PREMISES</p>
+      <h1 class="hero__h1">ChatGPT for firms that can&rsquo;t use ChatGPT.</h1>
+      <p class="hero__copy">On-premises AI for law, medical, accounting and financial advice firms that sit on data they cannot leak.</p>
+      <div class="hero__actions">
+        <a class="button button--light" href="#contact">Book a confidential consultation</a>
+        <a class="button button--light-ruled" href="/security-brief.html">Get the security brief</a>
+      </div>
+    </div>
   </header>
 
-  <section class="section" id="decision" data-reveal>
-    <p class="section__label">THE DECISION</p>
+  <section class="section section--beat" id="decision" data-reveal>
     <h2 class="section__title">Three ways to handle AI. Only one keeps your business protected, productive and in control.</h2>
-    <div class="section__grid grid--3">
-      <div class="card">
-        <p class="card__heading">You sit on data you're not allowed to leak.</p>
-        <p class="card__copy">Privileged matters, patient records, client financials and planning data. Law, medical, accounting and financial advice firms are built on information that must stay under their control.</p>
+    <div class="reg">
+      <div class="reg__row">
+        <span class="reg__no">01</span>
+        <h3 class="reg__h">You sit on data you're not allowed to leak.</h3>
+        <p class="reg__p">Privileged matters, patient records, client financials and planning data. Law, medical, accounting and financial advice firms are built on information that must stay under their control.</p>
       </div>
-      <div class="card">
-        <p class="card__heading">So your firm has quietly banned AI.</p>
-        <p class="card__copy">Staff are still pasting confidential material into free chat tools on their phones. Shadow AI means all the risk of AI, with none of the controls.</p>
+      <div class="reg__row">
+        <span class="reg__no">02</span>
+        <h3 class="reg__h">So your firm has quietly banned AI.</h3>
+        <p class="reg__p">Staff are still pasting confidential material into free chat tools on their phones. Shadow AI means all the risk of AI, with none of the controls.</p>
       </div>
-      <div class="card">
-        <p class="card__heading">The firms that solved this spent serious money.</p>
-        <p class="card__copy">Sovereign on-premises AI has been an enterprise purchase — six figures plus a dedicated IT function. Fine for a bank, not for a 20-person practice.</p>
+      <div class="reg__row">
+        <span class="reg__no">03</span>
+        <h3 class="reg__h">The firms that solved this spent serious money.</h3>
+        <p class="reg__p">Sovereign on-premises AI has been an enterprise purchase &mdash; six figures plus a dedicated IT function. Fine for a bank, not for a 20-person practice.</p>
       </div>
     </div>
   </section>
 
-  <section class="section section--thin" id="dominion" data-reveal>
-    <p class="section__label">DOMINION</p>
+  <section class="section section--beat" id="dominion" data-reveal>
+    <span class="beatmark">04</span>
     <h2 class="section__title">Dominion is that same class of capability, sized and priced for a firm.</h2>
-    <p class="section__text">A box in your office. Your files, your matters, your house style. Nothing ever leaves the building. Not cloud-hosted “private” — physically incapable of leaking.</p>
-    <ul class="list">
+    <p class="section__text">A box in your office. Your files, your matters, your house style. Nothing ever leaves the building. Not cloud-hosted &ldquo;private&rdquo; &mdash; physically incapable of leaking.</p>
+    <ul class="speclist">
       <li>Private AI on your premises, under your control.</li>
       <li>Designed for firms with client, patient and financial data.</li>
       <li>Onshore support, Australian custody and ABN-backed service.</li>
     </ul>
   </section>
 
-  <section class="section" data-reveal>
-    <div class="split" style="align-items:start">
+  <section class="section section--beat" data-reveal>
+    <div class="split">
       <div>
-        <p class="section__label">MANAGED SERVICE</p>
+        <span class="beatmark">05</span>
         <h2 class="section__title">You don't run it. We do.</h2>
         <p class="section__text">Dominion arrives as a service, not a project. One agreement covers the box, the setup and everything after.</p>
       </div>
@@ -204,64 +249,63 @@
     </div>
   </section>
 
-  <section class="section section--thin" id="pricing" data-reveal>
-    <p class="section__label">PRICING</p>
+  <section class="section section--beat" id="pricing" data-reveal>
+    <span class="beatmark">06</span>
     <h2 class="section__title">Pricing that fits a firm, not a bank.</h2>
-    <p class="section__text">Core: $6,500 one-time, $2,499/month for the whole firm, unlimited users. Growth: $7,995 one-time, $3,999/month for 15–30 staff.</p>
     <p class="section__text">Less than one part-time admin salary for every person in the building to have AI they are actually allowed to use.</p>
-    <div class="plans grid--2">
-      <div class="plan">
-        <span class="plan__label">Dominion Core</span>
-        <h3 class="plan__title">Up to 15 staff</h3>
-        <p class="plan__price">$6,500 + $2,499/mo</p>
-        <ul class="plan__list">
-          <li>Unlimited users</li>
-          <li>Private AI appliance</li>
-          <li>Knowledge management</li>
-          <li>Updates, monitoring and support</li>
-        </ul>
-        <div class="plan__footer"><a class="button button--primary" href="#contact">Book a confidential consultation</a></div>
+    <div class="plates">
+      <div class="plate">
+        <p class="plate__model">DOMINION CORE</p>
+        <p class="plate__sub">Up to 15 staff</p>
+        <dl class="plate__rows">
+          <div class="plate__row plate__row--price"><dt>INITIAL</dt><dd>$6,500</dd></div>
+          <div class="plate__row plate__row--price"><dt>MONTHLY</dt><dd>$2,499</dd></div>
+          <div class="plate__row"><dt>USERS</dt><dd>Unlimited</dd></div>
+          <div class="plate__row"><dt>APPLIANCE</dt><dd>Private AI, on premises</dd></div>
+          <div class="plate__row"><dt>KNOWLEDGE</dt><dd>Managed ingestion</dd></div>
+          <div class="plate__row"><dt>SERVICE</dt><dd>Updates, monitoring, support</dd></div>
+        </dl>
+        <div class="plate__footer"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
       </div>
-      <div class="plan">
-        <span class="plan__label">Dominion Growth</span>
-        <h3 class="plan__title">15–30 staff</h3>
-        <p class="plan__price">$7,995 + $3,999/mo</p>
-        <ul class="plan__list">
-          <li>Unlimited users</li>
-          <li>4 TB knowledge capacity</li>
-          <li>Private AI appliance</li>
-          <li>Support, optimisation and hardware cover</li>
-        </ul>
-        <div class="plan__footer"><a class="button button--primary" href="#contact">Book a confidential consultation</a></div>
+      <div class="plate">
+        <p class="plate__model">DOMINION GROWTH</p>
+        <p class="plate__sub">15&ndash;30 staff</p>
+        <dl class="plate__rows">
+          <div class="plate__row plate__row--price"><dt>INITIAL</dt><dd>$7,995</dd></div>
+          <div class="plate__row plate__row--price"><dt>MONTHLY</dt><dd>$3,999</dd></div>
+          <div class="plate__row"><dt>USERS</dt><dd>Unlimited</dd></div>
+          <div class="plate__row"><dt>CAPACITY</dt><dd>4 TB knowledge</dd></div>
+          <div class="plate__row"><dt>APPLIANCE</dt><dd>Private AI, on premises</dd></div>
+          <div class="plate__row"><dt>SERVICE</dt><dd>Support, optimisation, hardware cover</dd></div>
+        </dl>
+        <div class="plate__footer"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vault" data-reveal>
+    <h2 class="section__title">Your data is as safe as your building.</h2>
+    <div class="vault__grid">
+      <div class="vault__item">
+        <h3>Air-gapped by design</h3>
+        <p>There is no external path for your documents. The box does its work without sending anything out.</p>
+      </div>
+      <div class="vault__item">
+        <h3>Onshore in Australia</h3>
+        <p>Your data never leaves the country because it never leaves the building. Australian support, Australian custody.</p>
+      </div>
+      <div class="vault__item">
+        <h3>No cloud, no remote copy</h3>
+        <p>Not a private cloud instance. Not a hosted environment. It is a device in your office, physically incapable of leaking your data.</p>
+      </div>
+      <div class="vault__item">
+        <h3>Built for regulated firms</h3>
+        <p>Designed around legal privilege, patient privacy and financial-services obligations. Offered as context, not legal advice.</p>
       </div>
     </div>
   </section>
 
   <section class="section" data-reveal>
-    <p class="section__label">SECURITY</p>
-    <h2 class="section__title">Your data is as safe as your building.</h2>
-    <div class="section__grid grid--2">
-      <div class="card">
-        <p class="card__heading">Air-gapped by design</p>
-        <p class="card__copy">There is no external path for your documents. The box does its work without sending anything out.</p>
-      </div>
-      <div class="card">
-        <p class="card__heading">Onshore in Australia</p>
-        <p class="card__copy">Your data never leaves the country because it never leaves the building. Australian support, Australian custody.</p>
-      </div>
-      <div class="card">
-        <p class="card__heading">No cloud, no remote copy</p>
-        <p class="card__copy">Not a private cloud instance. Not a hosted environment. It is a device in your office, physically incapable of leaking your data.</p>
-      </div>
-      <div class="card">
-        <p class="card__heading">Built for regulated firms</p>
-        <p class="card__copy">Designed around legal privilege, patient privacy and financial-services obligations. Offered as context, not legal advice.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--thin" data-reveal>
-    <p class="section__label">FAQ</p>
     <h2 class="section__title">Straight answers for organisations that need them.</h2>
     <div class="faq">
       <div class="faq__item">
@@ -284,23 +328,25 @@
   </section>
 
   <section class="close" id="contact" data-reveal>
-    <p class="section__label">NEXT STEP</p>
     <h2 class="close__title">Put private AI <span class="close__accent">inside</span> your building.</h2>
     <p class="close__copy">A confidential consultation takes 30 minutes. We will tell you straight whether Dominion fits your firm.</p>
     <div class="close__actions">
-      <a class="button button--primary" href="mailto:hello@ermos.com.au">Book a confidential consultation</a>
-      <a class="button button--secondary" href="/security-brief.html">Get the security brief</a>
+      <a class="button button--solid" href="mailto:hello@ermos.com.au">Book a confidential consultation</a>
+      <a class="button button--ruled" href="/security-brief.html">Get the security brief</a>
     </div>
   </section>
 
   <footer class="footer">
-    <div class="nav__brand">ERMOS</div>
-    <div class="mono">hello@ermos.com.au &middot; 1300 ERMOS &middot; ABN 51 699 709 709 &middot; Australian owned and built</div>
+    <div class="footer__brand">ERMOS</div>
+    <div class="footer__data">hello@ermos.com.au &middot; 1300 ERMOS &middot; ABN 51 699 709 709 &middot; Australian owned and built</div>
   </footer>
 
   <script>
-    var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target);}})},{threshold:.18});
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target);}})},{threshold:.12});
     document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      var v=document.querySelector('.hero__media video'); if(v){v.pause();v.removeAttribute('autoplay');}
+    }
   </script>
 </body>
 </html>
