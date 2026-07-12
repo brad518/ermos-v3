@@ -79,6 +79,20 @@
   .feature__title{margin:0;font-size:1.55rem;line-height:1.1}
   .feature__copy{margin:0;font-size:1rem;line-height:1.75;color:var(--muted)}
 
+  .ops{margin-top:4px;border-top:1px solid var(--line)}
+  .ops__row{display:grid;grid-template-columns:150px 1fr;gap:28px;padding:28px 0;border-bottom:1px solid var(--line)}
+  .ops__when{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.14em;color:var(--muted);padding-top:5px;white-space:nowrap}
+  .ops__when--live{color:var(--accent)}
+  .ops__what h3{margin:0 0 8px;font-size:1.1rem;font-weight:400;line-height:1.3}
+  .ops__what p{margin:0;font-size:.98rem;line-height:1.7;color:var(--muted)}
+  .ops__note{margin:22px 0 0;font-family:var(--f-mono);font-size:.8rem;letter-spacing:.1em;color:var(--muted)}
+
+  .close{border-top:1px solid var(--line);padding:150px var(--pad) 130px}
+  .close__title{margin:0;max-width:16ch;font-size:clamp(2.6rem,5.5vw,4.6rem);font-weight:400;line-height:1.05;letter-spacing:-.03em}
+  .close__accent{color:var(--accent)}
+  .close__copy{margin:28px 0 0;max-width:42rem;font-size:1.05rem;line-height:1.75;color:var(--muted)}
+  .close__actions{margin-top:36px;display:flex;flex-wrap:wrap;gap:16px}
+
   .faq{display:grid;gap:22px;margin-top:32px}
   .faq__item{padding:24px 26px;border:1px solid var(--line);border-radius:22px;background:var(--surface)}
   .faq__q{margin:0 0 10px;font-weight:500}
@@ -91,7 +105,7 @@
   @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
 
   @media(max-width:980px){.hero{grid-template-columns:1fr;gap:48px;padding-top:120px}.hero__product{position:relative;right:auto;top:auto;width:100%;height:380px;order:-1}.hero__product::before{border-radius:24px}}
-  @media(max-width:760px){.section{padding:80px var(--pad)}.section__title{font-size:clamp(2rem,6vw,2.8rem)}.grid--3,.grid--2,.split{grid-template-columns:1fr}.nav{padding:18px 20px}.hero{padding:80px 20px}.hero__h1{font-size:clamp(2.6rem,10vw,3.8rem)}.hero__product{height:260px}.hero__actions{flex-direction:column;align-items:flex-start}.button{width:100%;justify-content:center}.card{padding:26px}.plan{padding:28px}.footer{padding:24px 20px;justify-content:center;text-align:center}}
+  @media(max-width:760px){.section{padding:80px var(--pad)}.section__title{font-size:clamp(2rem,6vw,2.8rem)}.grid--3,.grid--2,.split{grid-template-columns:1fr}.nav{padding:18px 20px}.hero{padding:80px 20px}.hero__h1{font-size:clamp(2.6rem,10vw,3.8rem)}.hero__product{height:260px}.hero__actions{flex-direction:column;align-items:flex-start}.button{width:100%;justify-content:center}.card{padding:26px}.plan{padding:28px}.footer{padding:24px 20px;justify-content:center;text-align:center}.ops__row{grid-template-columns:1fr;gap:8px;padding:22px 0}.ops__when{padding-top:0}.close{padding:100px 20px 80px}.close__actions{flex-direction:column;align-items:flex-start}}
 </style>
 </head>
 <body>
@@ -148,20 +162,44 @@
   </section>
 
   <section class="section" data-reveal>
-    <div class="split">
+    <div class="split" style="align-items:start">
       <div>
         <p class="section__label">MANAGED SERVICE</p>
-        <h3 class="feature__title">You don't run it. We do.</h3>
-        <p class="feature__copy">Installed in two weeks, managed for the life of the agreement, no IT hire, no per-seat licences, hardware replaced if it fails.</p>
+        <h2 class="section__title">You don't run it. We do.</h2>
+        <p class="section__text">Dominion arrives as a service, not a project. One agreement covers the box, the setup and everything after.</p>
       </div>
       <div>
-        <p class="section__label">WHAT IT INCLUDES</p>
-        <ul class="list">
-          <li>Secure on-site installation and configuration</li>
-          <li>Knowledge ingestion and house-style tuning</li>
-          <li>Monitoring, updates and optimisation</li>
-          <li>Hardware cover and replacement</li>
-        </ul>
+        <div class="ops">
+          <div class="ops__row">
+            <span class="ops__when">WK 00&ndash;02</span>
+            <div class="ops__what">
+              <h3>Installed and configured</h3>
+              <p>We deliver the appliance, set it up on site and connect it to your document stores. Secure by default from day one.</p>
+            </div>
+          </div>
+          <div class="ops__row">
+            <span class="ops__when">WK 02</span>
+            <div class="ops__what">
+              <h3>Tuned to your firm</h3>
+              <p>Your precedents, templates and house style are ingested, so answers sound like your firm rather than a chatbot.</p>
+            </div>
+          </div>
+          <div class="ops__row">
+            <span class="ops__when ops__when--live">ONGOING</span>
+            <div class="ops__what">
+              <h3>Monitored and kept sharp</h3>
+              <p>Updates, monitoring and optimisation happen quietly in the background. You never patch anything.</p>
+            </div>
+          </div>
+          <div class="ops__row">
+            <span class="ops__when">IF EVER</span>
+            <div class="ops__what">
+              <h3>Hardware covered</h3>
+              <p>If the box fails, we replace it. That is the whole policy.</p>
+            </div>
+          </div>
+        </div>
+        <p class="ops__note">NO IT HIRE &middot; NO PER-SEAT LICENCES &middot; NO SURPRISE INVOICES</p>
       </div>
     </div>
   </section>
@@ -245,12 +283,19 @@
     </div>
   </section>
 
-  <footer class="footer" id="contact">
-    <div>
-      <p class="mono">Book a confidential consultation</p>
-      <p><a class="button button--primary" href="mailto:hello@ermos.com.au">hello@ermos.com.au</a></p>
+  <section class="close" id="contact" data-reveal>
+    <p class="section__label">NEXT STEP</p>
+    <h2 class="close__title">Put private AI <span class="close__accent">inside</span> your building.</h2>
+    <p class="close__copy">A confidential consultation takes 30 minutes. We will tell you straight whether Dominion fits your firm.</p>
+    <div class="close__actions">
+      <a class="button button--primary" href="mailto:hello@ermos.com.au">Book a confidential consultation</a>
+      <a class="button button--secondary" href="/security-brief.html">Get the security brief</a>
     </div>
-    <div class="mono">ABN 51 699 709 709 · 1300 ERMOS · Australian owned and built</div>
+  </section>
+
+  <footer class="footer">
+    <div class="nav__brand">ERMOS</div>
+    <div class="mono">hello@ermos.com.au &middot; 1300 ERMOS &middot; ABN 51 699 709 709 &middot; Australian owned and built</div>
   </footer>
 
   <script>
