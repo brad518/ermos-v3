@@ -9,7 +9,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-  /* ===== tokens (flip theme via <html data-theme="dark">) ===== */
   :root{
     --bg:#FAFAFA; --surface:#FFFFFF; --ink:#0A0A0A; --muted:#6B6B6B;
     --line:rgba(0,0,0,.12); --accent:#0032FF;
@@ -23,80 +22,239 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-display);font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.5}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-display);font-weight:400;-webkit-font-smoothing:antialiased;line-height:1.6}
   a{color:inherit;text-decoration:none}
-  .mono{font-family:var(--f-mono);font-size:.8rem;letter-spacing:.02em;color:var(--muted)}
+  .mono{font-family:var(--f-mono);font-size:.84rem;letter-spacing:.08em;color:var(--muted)}
 
-  /* ===== nav ===== */
-  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;
-    padding:22px var(--pad);mix-blend-mode:difference;color:#fff}
+  .nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:22px var(--pad);background:rgba(250,250,250,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
   .nav__brand{font-family:var(--f-mono);font-size:1rem;letter-spacing:.28em}
-  .nav__links{display:flex;gap:28px;font-family:var(--f-mono);font-size:.78rem}
-  @media(max-width:720px){.nav__links{display:none}}
+  .nav__links{display:flex;gap:28px;font-family:var(--f-mono);font-size:.82rem}
+  .nav__links a{color:var(--ink)}
 
-  /* ===== hero ===== */
-  .hero{min-height:100svh;display:grid;grid-template-rows:1fr auto;padding:var(--pad);padding-top:120px}
-  .hero__eyebrow{margin:0 0 26px}
-  .hero__h1{font-weight:400;font-size:clamp(2.2rem,6vw,4.2rem);line-height:1.04;letter-spacing:-0.02em;max-width:16ch;margin:0}
+  .button{display:inline-flex;align-items:center;justify-content:center;padding:18px 28px;border-radius:999px;font-family:var(--f-mono);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase;border:1px solid transparent;transition:.25s ease;}
+  .button--primary{background:var(--ink);color:#fff;}
+  .button--secondary{background:transparent;color:var(--ink);border-color:var(--ink);}
+  .button:hover{transform:translateY(-1px)}
+
+  .hero{min-height:100svh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:64px;padding:calc(80px + 1vw) var(--pad);position:relative;overflow:hidden}
+  .hero__content{max-width:42rem}
+  .hero__eyebrow{margin:0 0 24px;font-size:.9rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .hero__h1{font-weight:400;font-size:clamp(3rem,6vw,5.5rem);line-height:1.02;letter-spacing:-.04em;margin:0;max-width:12ch}
   .hero__accent{color:var(--accent)}
-  .hero__foot{display:flex;justify-content:space-between;align-items:end;gap:24px;padding-top:40px}
-  .hero__cue{font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
-  /* product slot — drop a desaturated <video>/<img> of the Dominion box here */
-  .hero__product{position:absolute;inset:0;z-index:-1;display:grid;place-items:center;pointer-events:none;opacity:.9}
-  .hero__product::after{content:"[ product render — desaturated, cropped large ]";font-family:var(--f-mono);font-size:.78rem;color:var(--muted);opacity:.5}
+  .hero__copy{margin:28px 0 0;max-width:38rem;font-size:1.05rem;line-height:1.75;color:var(--muted)}
+  .hero__actions{margin-top:32px;display:flex;flex-wrap:wrap;gap:16px}
+  .hero__product{position:absolute;right:-4%;top:8%;width:min(58vw,700px);height:min(70vh,820px);pointer-events:none;display:grid;place-items:center;opacity:.95}
+  .hero__product video{width:100%;height:100%;object-fit:cover;border-radius:38px;box-shadow:0 60px 140px rgba(0,0,0,.16);background:#000}
+  .hero__product::before{content:'';position:absolute;inset:-16px;border-radius:46px;background:radial-gradient(circle at top, rgba(0,50,255,.08), transparent 28%),linear-gradient(180deg, rgba(255,255,255,.15), rgba(255,255,255,0));pointer-events:none}
 
-  /* ===== a section stub (one product / one idea per screen) ===== */
-  .band{border-top:1px solid var(--line);padding:clamp(64px,12vh,160px) var(--pad)}
-  .band__label{margin:0 0 20px}
-  .band__h2{font-weight:400;font-size:clamp(1.6rem,3.4vw,2.6rem);line-height:1.12;letter-spacing:-0.015em;max-width:22ch;margin:0}
-  .band__sub{margin:22px 0 0;font-size:1.05rem;line-height:1.6;color:var(--muted);max-width:52ch}
+  .section{padding:120px var(--pad)}
+  .section--thin{padding-top:80px;padding-bottom:80px}
+  .section__label{margin:0 0 16px;font-family:var(--f-mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .section__title{margin:0;max-width:14ch;font-size:clamp(2.1rem,4vw,3.6rem);font-weight:400;line-height:1.08}
+  .section__text{margin:24px 0 0;max-width:50ch;font-size:1rem;line-height:1.75;color:var(--muted)}
+  .section__grid{display:grid;gap:28px;margin-top:40px}
 
-  .foot{border-top:1px solid var(--line);padding:40px var(--pad);display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:.78rem;color:var(--muted)}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:26px;padding:32px;min-height:240px;box-shadow:0 22px 60px rgba(10,10,10,.04)}
+  .card__heading{margin:0 0 16px;font-size:1.1rem;line-height:1.2}
+  .card__copy{margin:0;font-size:1rem;line-height:1.75;color:var(--muted)}
 
-  /* reveal (respect reduced motion) */
-  [data-reveal]{opacity:0;transform:translateY(14px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+  .grid--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .grid--2{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+  .list{margin:32px 0 0;padding:0;list-style:none;display:grid;gap:18px}
+  .list__item{display:flex;gap:16px;font-size:1rem;line-height:1.75;color:var(--muted)}
+  .list__item::before{content:'•';color:var(--accent);font-family:var(--f-mono);}
+
+  .plans{display:grid;gap:24px;margin-top:40px}
+  .plan{border:1px solid var(--line);border-radius:28px;padding:32px;background:var(--surface);display:flex;flex-direction:column;gap:22px;min-height:320px}
+  .plan__label{font-family:var(--f-mono);font-size:.82rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .plan__title{margin:0;font-size:1.5rem;line-height:1.1}
+  .plan__price{margin:0;font-size:2rem;line-height:1.05;letter-spacing:-.04em}
+  .plan__list{list-style:none;padding:0;margin:0;display:grid;gap:12px}
+  .plan__list li{font-size:.98rem;color:var(--muted)}
+  .plan__footer{margin-top:auto}
+
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+  .feature__label{font-family:var(--f-mono);font-size:.82rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .feature__title{margin:0;font-size:1.55rem;line-height:1.1}
+  .feature__copy{margin:0;font-size:1rem;line-height:1.75;color:var(--muted)}
+
+  .faq{display:grid;gap:22px;margin-top:32px}
+  .faq__item{padding:24px 26px;border:1px solid var(--line);border-radius:22px;background:var(--surface)}
+  .faq__q{margin:0 0 10px;font-weight:500}
+  .faq__a{margin:0;color:var(--muted);line-height:1.75}
+
+  .footer{border-top:1px solid var(--line);padding:32px var(--pad);display:flex;justify-content:space-between;gap:24px;font-family:var(--f-mono);font-size:.82rem;color:var(--muted);flex-wrap:wrap}
+
+  [data-reveal]{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
   [data-reveal].in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+  @media(max-width:980px){.hero{grid-template-columns:1fr;gap:48px;padding-top:120px}.hero__product{position:relative;right:auto;top:auto;width:100%;height:380px;order:-1}.hero__product::before{border-radius:24px}}
+  @media(max-width:760px){.section{padding:80px var(--pad)}.section__title{font-size:clamp(2rem,6vw,2.8rem)}.grid--3,.grid--2,.split{grid-template-columns:1fr}.nav{padding:18px 20px}.hero{padding:80px 20px}.hero__h1{font-size:clamp(2.6rem,10vw,3.8rem)}.hero__product{height:260px}.hero__actions{flex-direction:column;align-items:flex-start}.button{width:100%;justify-content:center}.card{padding:26px}.plan{padding:28px}.footer{padding:24px 20px;justify-content:center;text-align:center}}
 </style>
 </head>
 <body>
   <nav class="nav">
     <div class="nav__brand">ERMOS</div>
-    <div class="nav__links"><a href="#dominion">Dominion</a><a href="#why">Sovereignty</a><a href="#contact">Contact</a></div>
+    <div class="nav__links"><a href="#decision">Decision</a><a href="#dominion">Dominion</a><a href="#pricing">Pricing</a></div>
   </nav>
 
   <header class="hero">
-    <div class="hero__product" aria-hidden="true"><!-- TODO: <video muted loop playsinline> of the Dominion box, desaturated --></div>
-    <div>
-      <p class="mono hero__eyebrow">CONCENTRATED INTELLIGENCE&trade; &nbsp;·&nbsp; ON YOUR PREMISES</p>
-      <h1 class="hero__h1">A private AI that never leaves <span class="hero__accent">your building.</span></h1>
+    <div class="hero__content">
+      <p class="hero__eyebrow">CONCENTRATED INTELLIGENCE&trade; · ON YOUR PREMISES</p>
+      <h1 class="hero__h1">ChatGPT for firms that can't use <span class="hero__accent">ChatGPT.</span></h1>
+      <p class="hero__copy">On-premises AI for law, medical, accounting and financial advice firms that sit on data they cannot leak.</p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="#pricing">Book a confidential consultation</a>
+        <a class="button button--secondary" href="/security-brief.html">Get the security brief</a>
+      </div>
     </div>
-    <div class="hero__foot">
-      <p class="hero__cue">Scroll &darr;</p>
-      <p class="mono">Designed, engineered &amp; secured in Australia</p>
+    <div class="hero__product" aria-hidden="true">
+      <video autoplay muted playsinline loop preload="auto" poster="assets/opt/hero-1200.webp" aria-label="The Ermos Dominion unit">
+        <source src="assets/video.mp4" type="video/mp4">
+      </video>
     </div>
   </header>
 
-  <section class="band" id="dominion" data-reveal>
-    <p class="mono band__label">01 — THE APPLIANCE</p>
-    <h2 class="band__h2">Dominion. A data centre in a box, in the corner of your office.</h2>
-    <p class="band__sub">Industrial-grade AI, air-gapped by design. Your documents, your model, your people — none of it ever touches the cloud.</p>
+  <section class="section" id="decision" data-reveal>
+    <p class="section__label">THE DECISION</p>
+    <h2 class="section__title">Three ways to handle AI. Only one keeps your business protected, productive and in control.</h2>
+    <div class="section__grid grid--3">
+      <div class="card">
+        <p class="card__heading">You sit on data you're not allowed to leak.</p>
+        <p class="card__copy">Privileged matters, patient records, client financials and planning data. Law, medical, accounting and financial advice firms are built on information that must stay under their control.</p>
+      </div>
+      <div class="card">
+        <p class="card__heading">So your firm has quietly banned AI.</p>
+        <p class="card__copy">Staff are still pasting confidential material into free chat tools on their phones. Shadow AI means all the risk of AI, with none of the controls.</p>
+      </div>
+      <div class="card">
+        <p class="card__heading">The firms that solved this spent serious money.</p>
+        <p class="card__copy">Sovereign on-premises AI has been an enterprise purchase — six figures plus a dedicated IT function. Fine for a bank, not for a 20-person practice.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="band" id="why" data-reveal>
-    <p class="mono band__label">02 — SOVEREIGNTY</p>
-    <h2 class="band__h2">Individual AI makes people faster. Dominion makes businesses <span class="hero__accent">smarter.</span></h2>
-    <p class="band__sub">Every interaction compounds into knowledge you own. It is not a subscription you rent — it is an asset you keep.</p>
+  <section class="section section--thin" id="dominion" data-reveal>
+    <p class="section__label">DOMINION</p>
+    <h2 class="section__title">Dominion is that same class of capability, sized and priced for a firm.</h2>
+    <p class="section__text">A box in your office. Your files, your matters, your house style. Nothing ever leaves the building. Not cloud-hosted “private” — physically incapable of leaking.</p>
+    <ul class="list">
+      <li>Private AI on your premises, under your control.</li>
+      <li>Designed for firms with client, patient and financial data.</li>
+      <li>Onshore support, Australian custody and ABN-backed service.</li>
+    </ul>
   </section>
 
-  <footer class="foot" id="contact">
-    <span>ERMOS &middot; 2026</span>
-    <span>Book a private consultation</span>
+  <section class="section" data-reveal>
+    <div class="split">
+      <div>
+        <p class="section__label">MANAGED SERVICE</p>
+        <h3 class="feature__title">You don't run it. We do.</h3>
+        <p class="feature__copy">Installed in two weeks, managed for the life of the agreement, no IT hire, no per-seat licences, hardware replaced if it fails.</p>
+      </div>
+      <div>
+        <p class="section__label">WHAT IT INCLUDES</p>
+        <ul class="list">
+          <li>Secure on-site installation and configuration</li>
+          <li>Knowledge ingestion and house-style tuning</li>
+          <li>Monitoring, updates and optimisation</li>
+          <li>Hardware cover and replacement</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--thin" id="pricing" data-reveal>
+    <p class="section__label">PRICING</p>
+    <h2 class="section__title">Pricing that fits a firm, not a bank.</h2>
+    <p class="section__text">Core: $6,500 one-time, $2,499/month for the whole firm, unlimited users. Growth: $7,995 one-time, $3,999/month for 15–30 staff.</p>
+    <p class="section__text">Less than one part-time admin salary for every person in the building to have AI they are actually allowed to use.</p>
+    <div class="plans grid--2">
+      <div class="plan">
+        <span class="plan__label">Dominion Core</span>
+        <h3 class="plan__title">Up to 15 staff</h3>
+        <p class="plan__price">$6,500 + $2,499/mo</p>
+        <ul class="plan__list">
+          <li>Unlimited users</li>
+          <li>Private AI appliance</li>
+          <li>Knowledge management</li>
+          <li>Updates, monitoring and support</li>
+        </ul>
+        <div class="plan__footer"><a class="button button--primary" href="#contact">Book a confidential consultation</a></div>
+      </div>
+      <div class="plan">
+        <span class="plan__label">Dominion Growth</span>
+        <h3 class="plan__title">15–30 staff</h3>
+        <p class="plan__price">$7,995 + $3,999/mo</p>
+        <ul class="plan__list">
+          <li>Unlimited users</li>
+          <li>4 TB knowledge capacity</li>
+          <li>Private AI appliance</li>
+          <li>Support, optimisation and hardware cover</li>
+        </ul>
+        <div class="plan__footer"><a class="button button--primary" href="#contact">Book a confidential consultation</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" data-reveal>
+    <p class="section__label">SECURITY</p>
+    <h2 class="section__title">Your data is as safe as your building.</h2>
+    <div class="section__grid grid--2">
+      <div class="card">
+        <p class="card__heading">Air-gapped by design</p>
+        <p class="card__copy">There is no external path for your documents. The box does its work without sending anything out.</p>
+      </div>
+      <div class="card">
+        <p class="card__heading">Onshore in Australia</p>
+        <p class="card__copy">Your data never leaves the country because it never leaves the building. Australian support, Australian custody.</p>
+      </div>
+      <div class="card">
+        <p class="card__heading">No cloud, no remote copy</p>
+        <p class="card__copy">Not a private cloud instance. Not a hosted environment. It is a device in your office, physically incapable of leaking your data.</p>
+      </div>
+      <div class="card">
+        <p class="card__heading">Built for regulated firms</p>
+        <p class="card__copy">Designed around legal privilege, patient privacy and financial-services obligations. Offered as context, not legal advice.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--thin" data-reveal>
+    <p class="section__label">FAQ</p>
+    <h2 class="section__title">Straight answers for organisations that need them.</h2>
+    <div class="faq">
+      <div class="faq__item">
+        <p class="faq__q">Is our data really safe?</p>
+        <p class="faq__a">Yes. The appliance stays on your premises, under your control. There is no remote data copy and no third-party access.</p>
+      </div>
+      <div class="faq__item">
+        <p class="faq__q">Do we need IT staff?</p>
+        <p class="faq__a">No. We install it, manage it, update it and replace hardware if it fails. Your firm uses it; we keep it running.</p>
+      </div>
+      <div class="faq__item">
+        <p class="faq__q">Can the box work with Microsoft 365?</p>
+        <p class="faq__a">Yes. It is built to sit alongside existing firm systems and to make your documents and matters searchable and actionable.</p>
+      </div>
+      <div class="faq__item">
+        <p class="faq__q">What does it cost?</p>
+        <p class="faq__a">Core is $6,500 one-time and $2,499 per month. Growth is $7,995 one-time and $3,999 per month. The whole firm is covered; there are no per-seat licences.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div>
+      <p class="mono">Book a confidential consultation</p>
+      <p><a class="button button--primary" href="mailto:hello@ermos.com.au">hello@ermos.com.au</a></p>
+    </div>
+    <div class="mono">ABN 51 699 709 709 · 1300 ERMOS · Australian owned and built</div>
   </footer>
 
   <script>
-    // slow scroll reveal
-    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.15});
+    var io=new IntersectionObserver(function(entries){entries.forEach(function(entry){if(entry.isIntersecting){entry.target.classList.add('in');io.unobserve(entry.target);}})},{threshold:.18});
     document.querySelectorAll('[data-reveal]').forEach(function(el){io.observe(el);});
   </script>
 </body>
