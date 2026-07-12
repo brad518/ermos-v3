@@ -1,0 +1,20 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - ERMOS-V3
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/configure-pages@v4
+      - name: Upload artifact for Pages
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: .
+      - name: Publish
+        uses: actions/deploy-pages@v2
