@@ -74,8 +74,14 @@
 
   /* WHY — rolling outcomes register beside the unit */
   .why{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center;margin-top:48px}
-  .why__stage{display:grid;place-items:center}
-  .why__stage img{width:min(100%,420px);filter:grayscale(.6) saturate(.45) brightness(.9) contrast(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 98%);mask-image:radial-gradient(closest-side,#000 55%,transparent 98%)}
+  .why__stage{display:flex;flex-direction:column;align-items:center;gap:10px}
+  .why__object{position:relative}
+  .why__object img,.why__object canvas{display:block;width:min(100%,420px);filter:grayscale(.6) saturate(.45) brightness(.9) contrast(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 98%);mask-image:radial-gradient(closest-side,#000 55%,transparent 98%)}
+  .why__object canvas{aspect-ratio:1/1;width:min(100%,420px)}
+  .why__mark{display:none;align-items:center;justify-content:center;gap:12px}
+  .why__mark.active{display:flex;animation:whyIn .45s ease both}
+  .why__mark svg{width:24px;height:24px;stroke:var(--brass);fill:none;stroke-width:1.5;flex:none}
+  .why__mark span{font-weight:600;font-size:.7rem;letter-spacing:.18em;color:var(--gunmetal);text-align:center}
   .why__nav{display:flex;gap:4px;border-bottom:1px solid var(--rule)}
   .why__btn{appearance:none;background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;padding:10px 14px;font-family:var(--f-mono);font-size:.85rem;color:var(--graphite);cursor:pointer}
   .why__btn[aria-selected="true"]{color:var(--brass);border-bottom-color:var(--brass)}
@@ -156,6 +162,7 @@
   @media(prefers-reduced-motion:reduce){
     [data-reveal]{opacity:1;transition:none}
     .hero__content{animation:none}
+    .why__entry.active,.why__mark.active{animation:none}
     html{scroll-behavior:auto}
   }
 
@@ -276,7 +283,29 @@
     <p class="section__text">A private AI infrastructure built to protect your data, empower your teams and drive real business outcomes.</p>
     <div class="why">
       <div class="why__stage" aria-hidden="true">
-        <img src="assets/opt/hero-1200.webp" alt="">
+        <div class="why__object">
+          <img src="assets/opt/hero-1200.webp" alt="">
+        </div>
+        <div class="why__mark active">
+          <svg viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21 C7.5 20 4 17 4 12 V6 Z"/></svg>
+          <span>PROTECT YOUR BUSINESS</span>
+        </div>
+        <div class="why__mark">
+          <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></svg>
+          <span>EMPOWER EVERY EMPLOYEE</span>
+        </div>
+        <div class="why__mark">
+          <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18"/><path d="M9 8 H15 M9 12 H15 M9 16 H13"/></svg>
+          <span>INSTANT BUSINESS INTELLIGENCE</span>
+        </div>
+        <div class="why__mark">
+          <svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12 H20 M17 12 V15.5 M20 12 V15"/></svg>
+          <span>OWN YOUR AI</span>
+        </div>
+        <div class="why__mark">
+          <svg viewBox="0 0 24 24"><path d="M4 19 H8 V14 H13 V9 H20"/></svg>
+          <span>REAL BUSINESS OUTCOMES</span>
+        </div>
       </div>
       <div class="why__panel">
         <div class="why__nav" role="tablist" aria-label="Why businesses choose Ermos">
@@ -547,12 +576,44 @@
       var root=document.getElementById('why'); if(!root) return;
       var entries=Array.prototype.slice.call(root.querySelectorAll('.why__entry'));
       var btns=Array.prototype.slice.call(root.querySelectorAll('.why__btn'));
+      var marks=Array.prototype.slice.call(root.querySelectorAll('.why__mark'));
       var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var i=0, timer=null;
+
+      // Rotation: reuse the hero's captured frames. On slide change the unit
+      // glides to that slide's viewing angle - same no-seek canvas technique.
+      var stage=root.querySelector('.why__object');
+      var wCv=null,wCtx=null,wIdx=0,wTarget=0,wRaf=null,wLast=null;
+      function wPaint(b){ if(wCv.width!==b.width){wCv.width=b.width;wCv.height=b.height;} wCtx.drawImage(b,0,0); }
+      function wStep(ts){
+        var F=window.__ermosFrames;
+        if(wLast==null) wLast=ts;
+        var dt=Math.min((ts-wLast)/1000,.1); wLast=ts;
+        wIdx+=(wTarget-wIdx)*Math.min(1,dt*5);
+        if(Math.abs(wTarget-wIdx)<.6){ wIdx=wTarget; wPaint(F[Math.round(wIdx)]); wRaf=null; wLast=null; return; }
+        wPaint(F[Math.max(0,Math.min(F.length-1,Math.round(wIdx)))]);
+        wRaf=requestAnimationFrame(wStep);
+      }
+      function wGo(k){
+        var F=window.__ermosFrames;
+        if(!F||reduce) return;
+        if(!wCv){
+          wCv=document.createElement('canvas'); stage.appendChild(wCv);
+          wCtx=wCv.getContext('2d');
+          stage.querySelector('img').style.display='none';
+          wIdx=0; wPaint(F[0]);
+        }
+        wTarget=Math.round(k*(F.length-1)/(entries.length-1));
+        if(!wRaf) wRaf=requestAnimationFrame(wStep);
+      }
+      document.addEventListener('ermos:frames',function(){ wGo(i); });
+
       function show(n){
         i=(n+entries.length)%entries.length;
         entries.forEach(function(e,k){ e.classList.toggle('active',k===i); });
         btns.forEach(function(b,k){ b.setAttribute('aria-selected',k===i?'true':'false'); });
+        marks.forEach(function(m,k){ m.classList.toggle('active',k===i); });
+        wGo(i);
       }
       function start(){ if(reduce||timer) return; timer=setInterval(function(){ show(i+1); },6000); }
       function stop(){ if(timer){ clearInterval(timer); timer=null; } }
@@ -585,6 +646,8 @@
       function finish(){
         if(!capturing) return; capturing=false; vid.pause();
         if(frames.length<2){ cv.remove(); vid.loop=true; vid.play().catch(function(){}); return; }
+        window.__ermosFrames=frames;
+        document.dispatchEvent(new Event('ermos:frames'));
         vid.style.visibility='hidden';
         var idx=0, dir=1, last=null, FPS=14;
         paint(frames[0]);
