@@ -70,6 +70,8 @@
   .reg__p{margin:0;color:var(--graphite);font-size:1rem}
 
   .beatmark{font-family:var(--f-mono);font-size:.85rem;color:var(--brass);display:block;margin-bottom:14px}
+  .reg--why .reg__row{grid-template-columns:230px 1fr 1.4fr}
+  .reg__cat{font-weight:600;font-size:.7rem;letter-spacing:.16em;color:var(--graphite);padding-top:8px}
 
   .speclist{margin:30px 0 0;padding:0;list-style:none;max-width:52ch}
   .speclist li{position:relative;padding:14px 0 14px 26px;border-top:1px solid var(--rule);color:var(--graphite)}
@@ -146,6 +148,9 @@
     .vault__grid{grid-template-columns:1fr}
     .reg__row{grid-template-columns:52px 1fr;grid-template-rows:auto auto}
     .reg__row .reg__p{grid-column:2}
+    .reg--why .reg__row{grid-template-columns:1fr;grid-template-rows:none}
+    .reg--why .reg__row .reg__p{grid-column:1}
+    .reg__cat{padding-top:0}
   }
   @media(max-width:760px){
     .section{padding:72px var(--pad)}
@@ -218,13 +223,24 @@
 
   <section class="section section--beat" id="dominion" data-reveal>
     <span class="beatmark">04</span>
-    <h2 class="section__title">Dominion is that same class of capability, sized and priced for a firm.</h2>
-    <p class="section__text">A box in your office. Your files, your matters, your house style. Nothing ever leaves the building. Not cloud-hosted &ldquo;private&rdquo; &mdash; physically incapable of leaking.</p>
-    <ul class="speclist">
-      <li>Private AI on your premises, under your control.</li>
-      <li>Designed for firms with client, patient and financial data.</li>
-      <li>Onshore support, Australian custody and ABN-backed service.</li>
-    </ul>
+    <h2 class="section__title">Why Dominion</h2>
+    <div class="reg reg--why">
+      <div class="reg__row">
+        <span class="reg__cat">SOVEREIGN BY DESIGN</span>
+        <h3 class="reg__h">Keep the intelligence in-house.</h3>
+        <p class="reg__p">Secure your knowledge and data with an AI that never leaves your building.</p>
+      </div>
+      <div class="reg__row">
+        <span class="reg__cat">ALWAYS LEARNING</span>
+        <h3 class="reg__h">Tuned for your business.</h3>
+        <p class="reg__p">An AI system you own that learns from every input. Always up to date, constantly getting smarter.</p>
+      </div>
+      <div class="reg__row">
+        <span class="reg__cat">SECURITY &amp; CONTROL</span>
+        <h3 class="reg__h">Yours, and yours alone.</h3>
+        <p class="reg__p">For firms that sit on confidential data. Your files, documents and data stay in your control at all times.</p>
+      </div>
+    </div>
   </section>
 
   <section class="section section--beat" data-reveal>
