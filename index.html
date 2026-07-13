@@ -72,14 +72,18 @@
   .beatmark{font-family:var(--f-mono);font-size:.85rem;color:var(--brass);display:block;margin-bottom:14px}
   .reg__cat{display:block;font-weight:600;font-size:.7rem;letter-spacing:.16em;color:var(--graphite);margin:2px 0 8px}
 
-  /* WHY — centrepiece unit; hallmarks materialise over the box */
+  /* WHY — exhibit case: spinning unit with hallmark lockups over it */
   .whyc{margin-top:40px;display:flex;flex-direction:column;align-items:center}
+  .whyc__case{position:relative;width:min(100%,900px);background:#111316;border:1px solid var(--rule);display:grid;place-items:center;padding:clamp(20px,4vw,44px)}
   .whyc__unit{position:relative}
-  .whyc__unit img,.whyc__unit canvas{display:block;width:min(86vw,580px);filter:grayscale(.6) saturate(.45) brightness(.9) contrast(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 98%);mask-image:radial-gradient(closest-side,#000 55%,transparent 98%)}
-  .whyc__unit canvas{aspect-ratio:1/1}
+  .whyc__unit img,.whyc__unit canvas{display:block;width:min(70vw,560px);filter:grayscale(.6) saturate(.45) brightness(.95) contrast(1.03)}
+  .whyc__unit canvas{aspect-ratio:1/1;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 99%);mask-image:radial-gradient(closest-side,#000 62%,transparent 99%)}
   .whyc__glyphs{position:absolute;inset:0;display:grid;pointer-events:none;z-index:2}
-  .whyc__glyph{grid-area:1/1;place-self:center;width:clamp(64px,12vw,96px);height:clamp(64px,12vw,96px);stroke:rgba(243,241,236,.95);fill:none;stroke-width:.6;opacity:0;transform:scale(.9);transition:opacity .7s ease,transform .7s ease}
-  .whyc__glyph.active{opacity:1;transform:none}
+  .whyc__badge{grid-area:1/1;place-self:center;display:flex;align-items:center;gap:16px;opacity:0;transform:scale(.94);transition:opacity .7s ease,transform .7s ease}
+  .whyc__badge.active{opacity:1;transform:none}
+  .whyc__badge svg{width:clamp(44px,7vw,60px);height:clamp(44px,7vw,60px);stroke:rgba(243,241,236,.95);fill:none;stroke-width:.9;flex:none}
+  .whyc__bt{display:flex;flex-direction:column;gap:5px;text-align:left;color:rgba(243,241,236,.92);font-weight:600;font-size:.74rem;letter-spacing:.16em;line-height:1.5;max-width:15ch}
+  .whyc__bno{font-family:var(--f-mono);font-weight:400;font-size:.8rem;color:rgba(243,241,236,.66)}
   .whyc__rail{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:10px}
   .whyc__tab{appearance:none;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 14px;color:var(--graphite);opacity:.55;transition:color .35s ease,opacity .5s ease;font-family:var(--f-sans)}
   .whyc__no{font-family:var(--f-mono);font-size:.78rem}
@@ -87,9 +91,13 @@
   .whyc__tab.active{color:var(--brass);opacity:1}
   .whyc__tab:hover{color:var(--gunmetal);opacity:.85}
   .whyc__tab.active:hover{color:var(--brass);opacity:1}
-  .whyd__exp{margin-top:30px;min-height:96px;text-align:center}
-  .whyd__exp p{display:none;margin:0 auto;font-family:var(--f-serif);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;max-width:44ch}
-  .whyd__exp p.active{display:block;animation:whyIn .45s ease both}
+  .whyd__exp{margin-top:30px;min-height:340px;text-align:center;width:100%}
+  .whyd__exp .whyx{display:none}
+  .whyd__exp .whyx.active{display:block;animation:whyIn .45s ease both}
+  .whyx__lead{margin:0 auto;font-family:var(--f-serif);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;max-width:44ch}
+  .whyx__pts{list-style:none;margin:20px auto 0;padding:0;max-width:440px;text-align:left}
+  .whyx__pts li{position:relative;padding:10px 0 10px 24px;border-top:1px solid var(--rule);color:var(--graphite);font-size:.97rem}
+  .whyx__pts li::before{content:'';position:absolute;left:2px;top:17px;width:7px;height:7px;background:var(--brass)}
   @keyframes whyIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
   .why__statement{margin:64px 0 0;font-family:var(--f-serif);font-size:clamp(1.5rem,2.8vw,2.3rem);line-height:1.2;max-width:24ch}
   .why__actions{margin-top:28px}
@@ -163,16 +171,17 @@
     .whyd__exp p.active{animation:none}
     .whyc__tab{transition:none;opacity:.6}
     .whyc__tab.active{opacity:1}
-    .whyc__glyph{transition:none}
+    .whyc__badge{transition:none}
     html{scroll-behavior:auto}
   }
 
   @media(max-width:980px){
     .split{grid-template-columns:1fr;gap:40px}
-    .whyc__unit img,.whyc__unit canvas{width:min(88vw,420px)}
+    .whyc__unit img,.whyc__unit canvas{width:min(76vw,400px)}
     .whyc__t{font-size:.62rem}
     .whyc__tab{padding:8px 10px}
-    .whyd__exp{min-height:120px}
+    .whyc__badge{gap:10px}
+    .whyd__exp{min-height:400px}
     .plates{grid-template-columns:1fr;gap:34px}
     .vault__grid{grid-template-columns:1fr}
     .reg__row{grid-template-columns:52px 1fr;grid-template-rows:auto auto}
@@ -284,14 +293,31 @@
     <h2 class="section__title">Why businesses choose Ermos.</h2>
     <p class="section__text">A private AI infrastructure built to protect your data, empower your teams and drive real business outcomes.</p>
     <div class="whyc">
-      <div class="whyc__unit" aria-hidden="true">
-        <img src="assets/opt/hero-1200.webp" alt="">
-        <div class="whyc__glyphs">
-          <svg class="whyc__glyph active" viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21 C7.5 20 4 17 4 12 V6 Z"/></svg>
-          <svg class="whyc__glyph" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></svg>
-          <svg class="whyc__glyph" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18"/><path d="M9 8 H15 M9 12 H15 M9 16 H13"/></svg>
-          <svg class="whyc__glyph" viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12 H20 M17 12 V15.5 M20 12 V15"/></svg>
-          <svg class="whyc__glyph" viewBox="0 0 24 24"><path d="M4 19 H8 V14 H13 V9 H20"/></svg>
+      <div class="whyc__case" aria-hidden="true">
+        <div class="whyc__unit">
+          <img src="assets/opt/hero-1200.webp" alt="">
+          <div class="whyc__glyphs">
+            <div class="whyc__badge active">
+              <svg viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21 C7.5 20 4 17 4 12 V6 Z"/></svg>
+              <span class="whyc__bt"><span class="whyc__bno">01</span>PROTECT YOUR BUSINESS</span>
+            </div>
+            <div class="whyc__badge">
+              <svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></svg>
+              <span class="whyc__bt"><span class="whyc__bno">02</span>EMPOWER EVERY EMPLOYEE</span>
+            </div>
+            <div class="whyc__badge">
+              <svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18"/><path d="M9 8 H15 M9 12 H15 M9 16 H13"/></svg>
+              <span class="whyc__bt"><span class="whyc__bno">03</span>INSTANT BUSINESS INTELLIGENCE</span>
+            </div>
+            <div class="whyc__badge">
+              <svg viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12 H20 M17 12 V15.5 M20 12 V15"/></svg>
+              <span class="whyc__bt"><span class="whyc__bno">04</span>OWN YOUR IP. OWN YOUR AI.</span>
+            </div>
+            <div class="whyc__badge">
+              <svg viewBox="0 0 24 24"><path d="M4 19 H8 V14 H13 V9 H20"/></svg>
+              <span class="whyc__bt"><span class="whyc__bno">05</span>REAL BUSINESS OUTCOMES</span>
+            </div>
+          </div>
         </div>
       </div>
       <div class="whyc__rail">
@@ -303,11 +329,56 @@
       </div>
     </div>
     <div class="whyd__exp" aria-live="polite">
-      <p class="active">Keep sensitive data, IP and client information inside your control. Nothing leaves the building.</p>
-      <p>Give every team member their own expert AI assistant, without adding headcount.</p>
-      <p>Turn your documents and knowledge into instant, trusted answers.</p>
-      <p>Own your platform, your models, your data and your future. No per-seat fees, ever.</p>
-      <p>Drive measurable impact where it matters most: time, cost and risk.</p>
+      <div class="whyx active">
+        <p class="whyx__lead">Keep sensitive data, IP and client information inside your control.</p>
+        <ul class="whyx__pts">
+          <li>Client data never leaves your building</li>
+          <li>Your IP stays yours</li>
+          <li>Australian custody and sovereignty</li>
+          <li>No third-party access</li>
+          <li>Enterprise-grade compliance</li>
+        </ul>
+      </div>
+      <div class="whyx">
+        <p class="whyx__lead">Give every team member their own expert AI assistant.</p>
+        <ul class="whyx__pts">
+          <li>Every employee gets AI capability</li>
+          <li>Eliminate repetitive work</li>
+          <li>Save hundreds of staff hours</li>
+          <li>Scale without adding headcount</li>
+          <li>Increase productivity across teams</li>
+        </ul>
+      </div>
+      <div class="whyx">
+        <p class="whyx__lead">Turn your documents and knowledge into instant, trusted answers.</p>
+        <ul class="whyx__pts">
+          <li>Find answers across every document</li>
+          <li>Ask your business anything</li>
+          <li>Document intelligence and insights</li>
+          <li>Automate workflows and tasks</li>
+          <li>Trusted answers in seconds</li>
+        </ul>
+      </div>
+      <div class="whyx">
+        <p class="whyx__lead">Own your platform, your models, your data and your future.</p>
+        <ul class="whyx__pts">
+          <li>Own your data, models and prompts</li>
+          <li>No per-seat fees, ever</li>
+          <li>Full control, always</li>
+          <li>Future-proof your investment</li>
+          <li>Upgrade and evolve on your terms</li>
+        </ul>
+      </div>
+      <div class="whyx">
+        <p class="whyx__lead">Drive measurable impact where it matters most.</p>
+        <ul class="whyx__pts">
+          <li>Save time and staff hours</li>
+          <li>Reduce costs and waste</li>
+          <li>Reduce risk and exposure</li>
+          <li>Empower your people</li>
+          <li>Scale smarter and faster</li>
+        </ul>
+      </div>
     </div>
     <p class="why__statement">One private AI infrastructure. <span class="close__accent">Complete control.</span></p>
     <div class="why__actions"><a class="button button--solid" href="#contact">Book a confidential consultation</a></div>
@@ -504,46 +575,44 @@
     // directly; hover pauses; reduced motion disables the auto-cycle entirely.
     (function(){
       var root=document.getElementById('why'); if(!root) return;
-      var entries=Array.prototype.slice.call(root.querySelectorAll('.whyd__exp p'));
+      var entries=Array.prototype.slice.call(root.querySelectorAll('.whyd__exp .whyx'));
       var btns=Array.prototype.slice.call(root.querySelectorAll('.whyc__tab'));
-      var marks=Array.prototype.slice.call(root.querySelectorAll('.whyc__glyph'));
+      var marks=Array.prototype.slice.call(root.querySelectorAll('.whyc__badge'));
       var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var i=0, timer=null;
 
-      // Rotation: reuse the hero's captured frames. On station change the unit
-      // glides to that station's viewing angle - same no-seek canvas technique.
+      // Rotation: continuous open ping-pong spin, independent of the cycle.
+      // Reuses the hero's captured decoded frames - no seeking, no loop jump.
       var stage=root.querySelector('.whyc__unit');
-      var wCv=null,wCtx=null,wIdx=0,wTarget=0,wRaf=null,wLast=null;
+      var wCv=null,wCtx=null,wIdx=0,wDir=1,wLast=null;
       function wPaint(b){ if(wCv.width!==b.width){wCv.width=b.width;wCv.height=b.height;} wCtx.drawImage(b,0,0); }
-      function wStep(ts){
+      function wLoop(ts){
         var F=window.__ermosFrames;
         if(wLast==null) wLast=ts;
         var dt=Math.min((ts-wLast)/1000,.1); wLast=ts;
-        wIdx+=(wTarget-wIdx)*Math.min(1,dt*5);
-        if(Math.abs(wTarget-wIdx)<.6){ wIdx=wTarget; wPaint(F[Math.round(wIdx)]); wRaf=null; wLast=null; return; }
-        wPaint(F[Math.max(0,Math.min(F.length-1,Math.round(wIdx)))]);
-        wRaf=requestAnimationFrame(wStep);
+        wIdx+=wDir*dt*10;
+        if(wIdx>=F.length-1){ wIdx=F.length-1; wDir=-1; }
+        if(wIdx<=0){ wIdx=0; wDir=1; }
+        wPaint(F[Math.round(wIdx)]);
+        requestAnimationFrame(wLoop);
       }
-      function wGo(k){
+      function wInit(){
         var F=window.__ermosFrames;
-        if(!F||reduce) return;
-        if(!wCv){
-          wCv=document.createElement('canvas'); stage.appendChild(wCv);
-          wCtx=wCv.getContext('2d');
-          stage.querySelector('img').style.display='none';
-          wIdx=0; wPaint(F[0]);
-        }
-        wTarget=Math.round(k*(F.length-1)/(entries.length-1));
-        if(!wRaf) wRaf=requestAnimationFrame(wStep);
+        if(!F||reduce||wCv) return;
+        wCv=document.createElement('canvas'); stage.appendChild(wCv);
+        wCtx=wCv.getContext('2d');
+        stage.querySelector('img').style.display='none';
+        wPaint(F[0]);
+        requestAnimationFrame(wLoop);
       }
-      document.addEventListener('ermos:frames',function(){ wGo(i); });
+      document.addEventListener('ermos:frames',wInit);
+      if(window.__ermosFrames) wInit();
 
       function show(n){
         i=(n+entries.length)%entries.length;
         entries.forEach(function(e,k){ e.classList.toggle('active',k===i); });
         btns.forEach(function(b,k){ b.classList.toggle('active',k===i); b.setAttribute('aria-pressed',k===i?'true':'false'); });
         marks.forEach(function(m,k){ m.classList.toggle('active',k===i); });
-        wGo(i);
       }
       function start(){ if(reduce||timer) return; timer=setInterval(function(){ show(i+1); },6000); }
       function stop(){ if(timer){ clearInterval(timer); timer=null; } }
