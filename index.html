@@ -72,24 +72,21 @@
   .beatmark{font-family:var(--f-mono);font-size:.85rem;color:var(--brass);display:block;margin-bottom:14px}
   .reg__cat{display:block;font-weight:600;font-size:.7rem;letter-spacing:.16em;color:var(--graphite);margin:2px 0 8px}
 
-  /* WHY — schematic callout diagram: five stations around the unit */
-  .whyd{display:grid;grid-template-columns:1fr 1.4fr 1fr;grid-template-areas:"s1 s2 s3" "s4 unit s5";border:1px solid var(--rule);margin-top:48px;padding:34px clamp(14px,3vw,40px) 44px;align-items:center;justify-items:center;row-gap:6px}
-  .whyd__st{appearance:none;background:none;border:none;cursor:pointer;position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px 12px;color:var(--graphite);opacity:.45;transition:color .35s ease,opacity .5s ease;font-family:var(--f-sans)}
-  .whyd__st svg{width:42px;height:42px;stroke:currentColor;fill:none;stroke-width:1.3}
-  .whyd__no{font-family:var(--f-mono);font-size:.8rem}
-  .whyd__t{font-weight:600;font-size:.74rem;letter-spacing:.15em;max-width:18ch;text-align:center;line-height:1.5}
-  .whyd__st.active{color:var(--brass);opacity:1}
-  .whyd__st:hover{color:var(--gunmetal);opacity:.85}
-  .whyd__st.active:hover{color:var(--brass);opacity:1}
-  .whyd__st::after{content:'';position:absolute;background:var(--rule);transition:background .3s ease}
-  .whyd__st--n::after{left:50%;top:100%;width:1px;height:24px}
-  .whyd__st--w::after{left:100%;top:50%;height:1px;width:clamp(10px,3vw,40px)}
-  .whyd__st--e::after{right:100%;top:50%;height:1px;width:clamp(10px,3vw,40px)}
-  .whyd__st.active::after{background:var(--brass)}
-  .whyd__st--1{grid-area:s1}.whyd__st--2{grid-area:s2}.whyd__st--3{grid-area:s3}.whyd__st--4{grid-area:s4}.whyd__st--5{grid-area:s5}
-  .whyd__unit{grid-area:unit;position:relative}
-  .whyd__unit img,.whyd__unit canvas{display:block;width:min(100%,440px);filter:grayscale(.6) saturate(.45) brightness(.9) contrast(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 98%);mask-image:radial-gradient(closest-side,#000 55%,transparent 98%)}
-  .whyd__unit canvas{aspect-ratio:1/1}
+  /* WHY — centrepiece unit; hallmarks materialise over the box */
+  .whyc{margin-top:40px;display:flex;flex-direction:column;align-items:center}
+  .whyc__unit{position:relative}
+  .whyc__unit img,.whyc__unit canvas{display:block;width:min(86vw,580px);filter:grayscale(.6) saturate(.45) brightness(.9) contrast(1.05);-webkit-mask-image:radial-gradient(closest-side,#000 55%,transparent 98%);mask-image:radial-gradient(closest-side,#000 55%,transparent 98%)}
+  .whyc__unit canvas{aspect-ratio:1/1}
+  .whyc__glyphs{position:absolute;inset:0;display:grid;pointer-events:none;z-index:2}
+  .whyc__glyph{grid-area:1/1;place-self:center;width:clamp(64px,12vw,96px);height:clamp(64px,12vw,96px);stroke:rgba(243,241,236,.95);fill:none;stroke-width:.6;opacity:0;transform:scale(.9);transition:opacity .7s ease,transform .7s ease}
+  .whyc__glyph.active{opacity:1;transform:none}
+  .whyc__rail{display:flex;flex-wrap:wrap;justify-content:center;gap:2px;margin-top:10px}
+  .whyc__tab{appearance:none;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;padding:10px 14px;color:var(--graphite);opacity:.55;transition:color .35s ease,opacity .5s ease;font-family:var(--f-sans)}
+  .whyc__no{font-family:var(--f-mono);font-size:.78rem}
+  .whyc__t{font-weight:600;font-size:.68rem;letter-spacing:.14em}
+  .whyc__tab.active{color:var(--brass);opacity:1}
+  .whyc__tab:hover{color:var(--gunmetal);opacity:.85}
+  .whyc__tab.active:hover{color:var(--brass);opacity:1}
   .whyd__exp{margin-top:30px;min-height:96px;text-align:center}
   .whyd__exp p{display:none;margin:0 auto;font-family:var(--f-serif);font-size:clamp(1.15rem,2vw,1.5rem);line-height:1.45;max-width:44ch}
   .whyd__exp p.active{display:block;animation:whyIn .45s ease both}
@@ -164,17 +161,17 @@
     [data-reveal]{opacity:1;transition:none}
     .hero__content{animation:none}
     .whyd__exp p.active{animation:none}
-    .whyd__st{transition:none;opacity:.6}
-    .whyd__st.active{opacity:1}
+    .whyc__tab{transition:none;opacity:.6}
+    .whyc__tab.active{opacity:1}
+    .whyc__glyph{transition:none}
     html{scroll-behavior:auto}
   }
 
   @media(max-width:980px){
     .split{grid-template-columns:1fr;gap:40px}
-    .whyd{grid-template-columns:1fr 1fr;grid-template-areas:"unit unit" "s1 s2" "s3 s4" "s5 s5";padding:24px 14px;row-gap:2px}
-    .whyd__unit img,.whyd__unit canvas{width:min(64vw,320px);margin:0 auto}
-    .whyd__st::after{display:none}
-    .whyd__st svg{width:34px;height:34px}
+    .whyc__unit img,.whyc__unit canvas{width:min(88vw,420px)}
+    .whyc__t{font-size:.62rem}
+    .whyc__tab{padding:8px 10px}
     .whyd__exp{min-height:120px}
     .plates{grid-template-columns:1fr;gap:34px}
     .vault__grid{grid-template-columns:1fr}
@@ -286,35 +283,24 @@
   <section class="section section--beat" id="why" data-reveal>
     <h2 class="section__title">Why businesses choose Ermos.</h2>
     <p class="section__text">A private AI infrastructure built to protect your data, empower your teams and drive real business outcomes.</p>
-    <div class="whyd">
-      <button class="whyd__st whyd__st--1 whyd__st--n active" type="button">
-        <span class="whyd__no">01</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21 C7.5 20 4 17 4 12 V6 Z"/></svg>
-        <span class="whyd__t">PROTECT YOUR BUSINESS</span>
-      </button>
-      <button class="whyd__st whyd__st--2 whyd__st--n" type="button">
-        <span class="whyd__no">02</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></svg>
-        <span class="whyd__t">EMPOWER EVERY EMPLOYEE</span>
-      </button>
-      <button class="whyd__st whyd__st--3 whyd__st--n" type="button">
-        <span class="whyd__no">03</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="3" width="12" height="18"/><path d="M9 8 H15 M9 12 H15 M9 16 H13"/></svg>
-        <span class="whyd__t">INSTANT BUSINESS INTELLIGENCE</span>
-      </button>
-      <button class="whyd__st whyd__st--4 whyd__st--w" type="button">
-        <span class="whyd__no">04</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12 H20 M17 12 V15.5 M20 12 V15"/></svg>
-        <span class="whyd__t">OWN YOUR IP. OWN YOUR AI.</span>
-      </button>
-      <div class="whyd__unit" aria-hidden="true">
+    <div class="whyc">
+      <div class="whyc__unit" aria-hidden="true">
         <img src="assets/opt/hero-1200.webp" alt="">
+        <div class="whyc__glyphs">
+          <svg class="whyc__glyph active" viewBox="0 0 24 24"><path d="M12 3 L20 6 V12 C20 17 16.5 20 12 21 C7.5 20 4 17 4 12 V6 Z"/></svg>
+          <svg class="whyc__glyph" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7"/><rect x="13.5" y="3.5" width="7" height="7"/><rect x="3.5" y="13.5" width="7" height="7"/><rect x="13.5" y="13.5" width="7" height="7"/></svg>
+          <svg class="whyc__glyph" viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18"/><path d="M9 8 H15 M9 12 H15 M9 16 H13"/></svg>
+          <svg class="whyc__glyph" viewBox="0 0 24 24"><circle cx="8" cy="12" r="3.5"/><path d="M11.5 12 H20 M17 12 V15.5 M20 12 V15"/></svg>
+          <svg class="whyc__glyph" viewBox="0 0 24 24"><path d="M4 19 H8 V14 H13 V9 H20"/></svg>
+        </div>
       </div>
-      <button class="whyd__st whyd__st--5 whyd__st--e" type="button">
-        <span class="whyd__no">05</span>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19 H8 V14 H13 V9 H20"/></svg>
-        <span class="whyd__t">REAL BUSINESS OUTCOMES</span>
-      </button>
+      <div class="whyc__rail">
+        <button class="whyc__tab active" type="button"><span class="whyc__no">01</span><span class="whyc__t">PROTECT YOUR BUSINESS</span></button>
+        <button class="whyc__tab" type="button"><span class="whyc__no">02</span><span class="whyc__t">EMPOWER EVERY EMPLOYEE</span></button>
+        <button class="whyc__tab" type="button"><span class="whyc__no">03</span><span class="whyc__t">INSTANT BUSINESS INTELLIGENCE</span></button>
+        <button class="whyc__tab" type="button"><span class="whyc__no">04</span><span class="whyc__t">OWN YOUR IP. OWN YOUR AI.</span></button>
+        <button class="whyc__tab" type="button"><span class="whyc__no">05</span><span class="whyc__t">REAL BUSINESS OUTCOMES</span></button>
+      </div>
     </div>
     <div class="whyd__exp" aria-live="polite">
       <p class="active">Keep sensitive data, IP and client information inside your control. Nothing leaves the building.</p>
@@ -519,14 +505,14 @@
     (function(){
       var root=document.getElementById('why'); if(!root) return;
       var entries=Array.prototype.slice.call(root.querySelectorAll('.whyd__exp p'));
-      var btns=Array.prototype.slice.call(root.querySelectorAll('.whyd__st'));
-      var marks=[];
+      var btns=Array.prototype.slice.call(root.querySelectorAll('.whyc__tab'));
+      var marks=Array.prototype.slice.call(root.querySelectorAll('.whyc__glyph'));
       var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var i=0, timer=null;
 
       // Rotation: reuse the hero's captured frames. On station change the unit
       // glides to that station's viewing angle - same no-seek canvas technique.
-      var stage=root.querySelector('.whyd__unit');
+      var stage=root.querySelector('.whyc__unit');
       var wCv=null,wCtx=null,wIdx=0,wTarget=0,wRaf=null,wLast=null;
       function wPaint(b){ if(wCv.width!==b.width){wCv.width=b.width;wCv.height=b.height;} wCtx.drawImage(b,0,0); }
       function wStep(ts){
@@ -556,12 +542,13 @@
         i=(n+entries.length)%entries.length;
         entries.forEach(function(e,k){ e.classList.toggle('active',k===i); });
         btns.forEach(function(b,k){ b.classList.toggle('active',k===i); b.setAttribute('aria-pressed',k===i?'true':'false'); });
+        marks.forEach(function(m,k){ m.classList.toggle('active',k===i); });
         wGo(i);
       }
       function start(){ if(reduce||timer) return; timer=setInterval(function(){ show(i+1); },6000); }
       function stop(){ if(timer){ clearInterval(timer); timer=null; } }
       btns.forEach(function(b,k){ b.addEventListener('click',function(){ stop(); show(k); start(); }); });
-      var dia=root.querySelector('.whyd');
+      var dia=root.querySelector('.whyc');
       dia.addEventListener('mouseenter',stop);
       dia.addEventListener('mouseleave',start);
       show(0); start();
